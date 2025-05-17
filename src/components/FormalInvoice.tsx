@@ -99,7 +99,11 @@ export default function FormalInvoice({
   // If we're using an existing invoice with client info from DB
   const displayClientName = client?.name ?? clientName;
   const displayClientAddress = client
-    ? `${client.address.building} ${client.address.street}, ${client.address.city}, ${client.address.state}, ${client.address.country} - ${client.address.zipCode}`
+    ? `${client.address.building ?? ""} ${client.address.street ?? ""}, ${
+        client.address.city ?? ""
+      }, ${client.address.state ?? ""}, ${client.address.country ?? ""} - ${
+        client.address.zipCode ?? ""
+      }`
     : clientAddress;
   const displayClientEmail = client?.email ?? clientEmail;
   const displayClientPhone = client?.phone ?? clientPhone;
