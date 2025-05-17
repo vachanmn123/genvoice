@@ -66,7 +66,7 @@ export default function DashboardSidebar() {
 
   return (
     <Sidebar>
-      <SidebarHeader className="border-b">
+      <SidebarHeader className="border-b bg-main">
         <div className="flex h-14 items-center px-4">
           <Link to="/app" className="flex items-center gap-2 font-semibold">
             <FileText className="h-6 w-6" />

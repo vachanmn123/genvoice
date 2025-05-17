@@ -72,7 +72,7 @@ export function ThemeProvider({
 
   useEffect(() => {
     const root = window.document.documentElement;
-
+    root.classList.remove(...Object.keys(themes));
     root.classList.add(theme);
   }, [theme]);
 
