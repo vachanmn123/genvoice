@@ -1,7 +1,8 @@
 import { createBrowserRouter } from "react-router";
 import Home from "../routes/Home";
 import Setup from "@/routes/Setup";
-import AppLayout from "@/routes/app/layout";
+import AppLayout from "@/routes/app/Layout";
+import Dashboard from "@/routes/app/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -15,7 +16,7 @@ const router = createBrowserRouter([
   {
     path: "/app",
     Component: AppLayout,
-    children: [{ index: true, element: <div>Hello!</div> }],
+    children: [{ index: true, Component: Dashboard }],
   },
 ]);
 

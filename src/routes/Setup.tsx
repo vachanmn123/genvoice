@@ -54,7 +54,7 @@ export default function Setup() {
       zip: "",
     },
     taxId: "",
-    taxIdentityType: "",
+    taxIdentityType: "EIN",
     phone: "",
     email: "",
     website: "",
@@ -196,6 +196,7 @@ export default function Setup() {
                   />
                 </div>
 
+                <h3 className="text-bold -mb-3 mt-2">Address Details</h3>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="building">Building</Label>
