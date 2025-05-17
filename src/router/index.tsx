@@ -10,6 +10,7 @@ import InvoicesHome from "@/routes/app/Invoices/Home";
 import CreateInvoice from "@/routes/app/Invoices/Create";
 import InvoiceDetailPage from "@/routes/app/Invoices/InvoiceInfo";
 import InvoicePrint from "@/routes/app/Invoices/InvoicePrint";
+import Settings from "@/routes/app/settings/Home";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
             Component: InvoiceDetailPage,
           },
         ],
+      },
+      {
+        path: "settings",
+        Component: Settings,
       },
     ],
   },

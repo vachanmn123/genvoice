@@ -102,6 +102,16 @@ class Company {
       return false;
     }
   }
+
+  static updateCompany(data: Partial<CompanyData>) {
+    const company = getObject("Company", "default");
+    if (company) {
+      const updatedCompany = { ...company, ...data };
+      saveObject("Company", updatedCompany, "default");
+    } else {
+      throw new Error("Company not found");
+    }
+  }
 }
 
 export default Company;
