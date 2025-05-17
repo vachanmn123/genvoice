@@ -169,7 +169,7 @@ export default function DashboardSidebar() {
       </SidebarContent>
       <SidebarFooter className="border-t p-4">
         <Button asChild className="w-full gap-2" size="sm">
-          <Link to="/invoices/create">
+          <Link to="/app/invoices/create">
             <Plus className="h-4 w-4" />
             <span>Create Invoice</span>
           </Link>

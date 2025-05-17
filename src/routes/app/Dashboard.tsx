@@ -1,4 +1,3 @@
-import { SidebarInset } from "@/components/ui/sidebar";
 import {
   Card,
   CardContent,
@@ -6,8 +5,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { SidebarTrigger } from "@/components/ui/sidebar";
-import { Menu } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -17,90 +14,144 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Client from "@/lib/db/Client";
-// import { Link } from "react-router";
+import Product from "@/lib/db/Product";
+import Invoice from "@/lib/db/Invoices";
+import Company from "@/lib/db/Company";
+import { Badge } from "@/components/ui/badge";
+import { Link } from "react-router";
+
+const company = new Company();
 
 export default function Dashboard() {
+  const invoices = Invoice.getAll();
   return (
-    <SidebarInset>
-      <header className="sticky top-0 z-10 flex h-14 items-center gap-4 border-b bg-background px-4 sm:px-6">
-        <SidebarTrigger className="md:hidden">
-          <Menu className="h-6 w-6" />
-        </SidebarTrigger>
-        <div className="flex-1">
-          <h1 className="text-lg font-semibold">Dashboard Overview</h1>
-        </div>
-      </header>
-      <main className="flex-1 overflow-auto p-4 sm:p-6">
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle>Total Clients</CardTitle>
-              <CardDescription>All registered clients</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{Client.getCount()}</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle>Active Products</CardTitle>
-              <CardDescription>Products in your catalog</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">36</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle>Pending Invoices</CardTitle>
-              <CardDescription>Awaiting payment</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">12</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle>Revenue</CardTitle>
-              <CardDescription>This month</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">$12,234</div>
-            </CardContent>
-          </Card>
-        </div>
+    <>
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle>Total Clients</CardTitle>
+            <CardDescription>All registered clients</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{Client.getCount()}</div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle>Active Products</CardTitle>
+            <CardDescription>Products in your catalog</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{Product.getCount()}</div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle>Pending Invoices</CardTitle>
+            <CardDescription>Awaiting payment</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">
+              {
+                invoices.filter((i) => ["sent", "overdue"].includes(i.status))
+                  .length
+              }
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle>Revenue</CardTitle>
+            <CardDescription>This month</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">
+              {invoices
+                .filter(
+                  (i) =>
+                    new Date(i.dueDate).getMonth() === new Date().getMonth()
+                )
+                .reduce((acc, inv) => acc + inv.total, 0)
+                .toLocaleString("en-US", {
+                  style: "currency",
+                  currency: company.defaultCurrency,
+                })}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
 
-        <div className="mt-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Recent Invoices</CardTitle>
-              <CardDescription>
-                Overview of your latest invoices
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableHead>Invoice ID</TableHead>
-                  <TableHead>Client</TableHead>
-                  <TableHead>Date</TableHead>
-                  <TableHead>Amount</TableHead>
-                  <TableHead>Status</TableHead>
-                </TableHeader>
+      <div className="mt-6">
+        <Card>
+          <CardHeader>
+            <CardTitle>Recent Invoices</CardTitle>
+            <CardDescription>Overview of your latest invoices</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Table>
+              <TableHeader>
+                <TableHead>Invoice ID</TableHead>
+                <TableHead>Client</TableHead>
+                <TableHead>Date</TableHead>
+                <TableHead>Amount</TableHead>
+                <TableHead>Status</TableHead>
+              </TableHeader>
 
-                <TableBody>
-                  {/* TODO: Add */}
+              <TableBody>
+                {invoices.length === 0 && (
                   <TableRow>
                     <TableCell colSpan={5} className="text-center">
                       No Recent Invoices.
                     </TableCell>
                   </TableRow>
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
-        </div>
-      </main>
-    </SidebarInset>
+                )}
+                {invoices
+                  .sort((a, b) => b.date - a.date)
+                  .map((invoice) => (
+                    <TableRow key={invoice.id}>
+                      <TableCell>
+                        <Link
+                          to={`/app/invoices/${invoice.id}`}
+                          className="hover:underline"
+                        >
+                          {invoice.invoiceNumber}
+                        </Link>
+                      </TableCell>
+                      <TableCell>
+                        <Link
+                          to={`/app/clients/${invoice.clientId}`}
+                          className="hover:underline"
+                        >
+                          {Client.getById(invoice.clientId)?.name ||
+                            invoice.clientId}
+                        </Link>
+                      </TableCell>
+                      <TableCell>
+                        {new Date(invoice.date).toLocaleDateString()}
+                      </TableCell>
+                      <TableCell>
+                        {invoice.total.toLocaleString("en-US", {
+                          style: "currency",
+                          currency: company.defaultCurrency,
+                        })}
+                      </TableCell>
+                      <TableCell>
+                        <Badge
+                          variant={
+                            invoice.status === "paid" ? "default" : "neutral"
+                          }
+                        >
+                          {invoice.status.charAt(0).toUpperCase() +
+                            invoice.status.slice(1)}
+                        </Badge>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+              </TableBody>
+            </Table>
+          </CardContent>
+        </Card>
+      </div>
+    </>
   );
 }
