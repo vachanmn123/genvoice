@@ -24,8 +24,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { MoreHorizontal, FileText, Download, Send } from "lucide-react";
+import { MoreHorizontal, FileText, Download } from "lucide-react";
 import Invoice from "@/lib/db/Invoices";
+import { useNavigate } from "react-router";
 
 interface ClientInvoicesProps {
   invoices: Invoice[];
@@ -33,6 +34,7 @@ interface ClientInvoicesProps {
 }
 
 export function ClientInvoices({ invoices, filter }: ClientInvoicesProps) {
+  const naviagate = useNavigate();
   const [localInvoices, setLocalInvoices] = useState<Invoice[]>(invoices);
 
   const handleStatusChange = (
@@ -40,12 +42,13 @@ export function ClientInvoices({ invoices, filter }: ClientInvoicesProps) {
     newStatus: "draft" | "sent" | "paid" | "overdue"
   ) => {
     // updateInvoiceStatus(invoiceId, newStatus);
-
-    setLocalInvoices((prev) =>
-      prev.map((invoice) =>
-        invoice.id === invoiceId ? { ...invoice, status: newStatus } : invoice
-      )
+    const newInvoice = Invoice.updateStatusById(invoiceId, newStatus);
+    setLocalInvoices((prevInvoices) =>
+      prevInvoices
+        .filter((invoice) => invoice.id !== invoiceId)
+        .concat(newInvoice)
     );
+    naviagate(`/app/clients/${newInvoice.clientId}`);
   };
 
   const getStatusBadge = (status: string) => {
@@ -127,17 +130,24 @@ export function ClientInvoices({ invoices, filter }: ClientInvoicesProps) {
                         <DropdownMenuContent align="end">
                           <DropdownMenuLabel>Actions</DropdownMenuLabel>
                           <DropdownMenuSeparator />
-                          <DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={() => {
+                              naviagate(`/app/invoices/${invoice.id}`);
+                            }}
+                          >
                             <FileText className="mr-2 h-4 w-4" />
                             View Details
                           </DropdownMenuItem>
-                          <DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={() => {
+                              window.open(
+                                `/app/invoices/${invoice.id}/print`,
+                                "_blank"
+                              );
+                            }}
+                          >
                             <Download className="mr-2 h-4 w-4" />
                             Download PDF
-                          </DropdownMenuItem>
-                          <DropdownMenuItem>
-                            <Send className="mr-2 h-4 w-4" />
-                            Send to Client
                           </DropdownMenuItem>
                           <DropdownMenuSeparator />
                           <DropdownMenuLabel>Change Status</DropdownMenuLabel>
