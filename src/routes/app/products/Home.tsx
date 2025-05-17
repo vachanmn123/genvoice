@@ -28,9 +28,9 @@ export default function ProductsHome() {
           open={addDialogOpen}
           onOpenChange={setAddDialogOpen}
           onSave={(data) => {
-            const product = new Product(data);
+            new Product(data);
             setAddDialogOpen(false);
-            navigate(`/app/products/${product.id}`);
+            navigate(`/app/products`);
           }}
         />
       </div>
