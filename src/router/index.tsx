@@ -3,6 +3,8 @@ import Home from "../routes/Home";
 import Setup from "@/routes/Setup";
 import AppLayout from "@/routes/app/Layout";
 import Dashboard from "@/routes/app/Dashboard";
+import ClientsHome from "@/routes/app/clients/Home";
+import ClientInfo from "@/routes/app/clients/ClientInfo";
 
 const router = createBrowserRouter([
   {
@@ -16,7 +18,16 @@ const router = createBrowserRouter([
   {
     path: "/app",
     Component: AppLayout,
-    children: [{ index: true, Component: Dashboard }],
+    children: [
+      { index: true, Component: Dashboard },
+      {
+        path: "clients",
+        children: [
+          { index: true, Component: ClientsHome },
+          { path: ":id", Component: ClientInfo },
+        ],
+      },
+    ],
   },
 ]);
 

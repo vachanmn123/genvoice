@@ -1,4 +1,3 @@
-"use client";
 import { Link } from "react-router";
 import {
   Users,
@@ -87,8 +86,14 @@ export default function DashboardSidebar() {
               <SidebarMenuItem key={item.title}>
                 <SidebarMenuButton
                   asChild
-                  isActive={pathname.includes(item.href)}
+                  isActive={pathname === item.href}
                   tooltip={item.title}
+                  className={
+                    (pathname === item.href
+                      ? "bg-main border-border border-2"
+                      : "") +
+                    " hover:translate-y-[-3px] hover:translate-x-[-2.5px] transition-all"
+                  }
                 >
                   <Link to={item.href}>
                     <item.icon className="h-5 w-5" />
@@ -114,6 +119,12 @@ export default function DashboardSidebar() {
                   asChild
                   isActive={pathname === item.href}
                   tooltip={item.title}
+                  className={
+                    (pathname.includes(item.href)
+                      ? "bg-main border-border border-2"
+                      : "") +
+                    " hover:translate-y-[-3px] hover:translate-x-[-2.5px] transition-all"
+                  }
                 >
                   <Link to={item.href}>
                     <item.icon className="h-5 w-5" />
@@ -139,6 +150,12 @@ export default function DashboardSidebar() {
                   asChild
                   isActive={pathname === item.href}
                   tooltip={item.title}
+                  className={
+                    (pathname.includes(item.href)
+                      ? "bg-main border-border border-2"
+                      : "") +
+                    " hover:translate-y-[-3px] hover:translate-x-[-2.5px] transition-all"
+                  }
                 >
                   <Link to={item.href}>
                     <item.icon className="h-5 w-5" />

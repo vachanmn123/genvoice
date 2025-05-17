@@ -1,5 +1,3 @@
-"use client";
-
 import { SidebarInset } from "@/components/ui/sidebar";
 import {
   Card,
@@ -18,6 +16,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import Client from "@/lib/db/Client";
 // import { Link } from "react-router";
 
 export default function Dashboard() {
@@ -35,20 +34,16 @@ export default function Dashboard() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">
-                Total Clients
-              </CardTitle>
+              <CardTitle>Total Clients</CardTitle>
               <CardDescription>All registered clients</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">24</div>
+              <div className="text-2xl font-bold">{Client.getCount()}</div>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">
-                Active Products
-              </CardTitle>
+              <CardTitle>Active Products</CardTitle>
               <CardDescription>Products in your catalog</CardDescription>
             </CardHeader>
             <CardContent>
@@ -57,9 +52,7 @@ export default function Dashboard() {
           </Card>
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">
-                Pending Invoices
-              </CardTitle>
+              <CardTitle>Pending Invoices</CardTitle>
               <CardDescription>Awaiting payment</CardDescription>
             </CardHeader>
             <CardContent>
@@ -68,7 +61,7 @@ export default function Dashboard() {
           </Card>
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">Revenue</CardTitle>
+              <CardTitle>Revenue</CardTitle>
               <CardDescription>This month</CardDescription>
             </CardHeader>
             <CardContent>
