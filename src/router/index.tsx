@@ -5,6 +5,7 @@ import AppLayout from "@/routes/app/Layout";
 import Dashboard from "@/routes/app/Dashboard";
 import ClientsHome from "@/routes/app/clients/Home";
 import ClientInfo from "@/routes/app/clients/ClientInfo";
+import ProductsHome from "@/routes/app/products/Home";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
           { index: true, Component: ClientsHome },
           { path: ":id", Component: ClientInfo },
         ],
+      },
+      {
+        path: "products",
+        children: [{ index: true, Component: ProductsHome }],
       },
     ],
   },
