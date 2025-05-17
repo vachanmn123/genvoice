@@ -1,54 +1,67 @@
-# React + TypeScript + Vite
+# Genvoice – Local Invoice Generator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Genvoice is a privacy-first, client-side invoice management app for freelancers and small businesses. All your data stays on your device—no servers, no cloud, no sign-up required.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Client-side only:** All data is stored in your browser (IndexedDB/localStorage).
+- **Client management:** Add, edit, search, and delete clients with full address and contact info.
+- **Product management:** Manage your products/services.
+- **Invoice management:** Create, edit, download, and track invoices. Change status (draft, sent, paid, overdue).
+- **Dashboard:** Quick stats and charts for your business.
+- **Modern UI:** Responsive, themeable, and accessible interface.
+- **Offline support:** Works without internet.
+- **No data leaves your device.**
 
-## Expanding the ESLint configuration
+## 🚀 Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1. **Clone the repo:**
+   ```sh
+   git clone https://github.com/yourusername/invoice-generator.git
+   cd invoice-generator
+   ```
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+2. **Install dependencies:**
+   ```sh
+   npm install
+   ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+3. **Run the app:**
+   ```sh
+   npm run dev
+   ```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+4. **Open in your browser:**
+   ```
+   http://localhost:5173
+   ```
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+## 🛠️ Tech Stack
+
+- React 19
+- TypeScript
+- Vite
+- Tailwind CSS
+- Radix UI
+- Lucide Icons
+- Zod, react-hook-form
+- Sonner (toasts)
+
+## 📦 Project Structure
+
+- `src/components/` – UI and feature components
+- `src/lib/db/` – Local database logic (client, product, invoice)
+- `src/hooks/` – Custom React hooks
+- `src/index.css` – Tailwind and theme styles
+
+## 🛡️ Privacy
+
+Genvoice is 100% client-side. Your data never leaves your device.
+
+## 📄 License
+
+MIT
+
+---
+
+Made with ❤️ for privacy and productivity.

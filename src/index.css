@@ -352,6 +352,7 @@
 @layer base {
   body {
     @apply text-foreground font-base bg-background;
+    scroll-behavior: smooth;
   }
 
   h1,

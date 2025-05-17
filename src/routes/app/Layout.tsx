@@ -32,6 +32,14 @@ export default function AppLayout() {
     }
   }, [navigate]);
 
+  if (!Company.isCompanySetup()) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center bg-background">
+        <h1 className="text-2xl font-semibold">Please complete the setup</h1>
+      </div>
+    );
+  }
+
   return (
     <SidebarProvider>
       <div className="flex h-screen w-full overflow-hidden bg-background">

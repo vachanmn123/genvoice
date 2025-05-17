@@ -655,12 +655,12 @@ export default function CreateInvoice() {
                   clientName={selectedClient?.name}
                   clientAddress={
                     selectedClient
-                      ? `${selectedClient.address?.building || ""} ${
-                          selectedClient.address?.street || ""
-                        }, ${selectedClient.address?.city || ""}, ${
-                          selectedClient.address?.state || ""
+                      ? `${selectedClient.address?.building ?? ""} ${
+                          selectedClient.address?.street ?? ""
+                        }, ${selectedClient.address?.city ?? ""}, ${
+                          selectedClient.address?.state ?? ""
                         }, ${selectedClient.address?.country || ""} - ${
-                          selectedClient.address?.zipCode || ""
+                          selectedClient.address?.zipCode ?? ""
                         }`
                       : undefined
                   }

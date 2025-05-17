@@ -20,9 +20,8 @@ import Company from "@/lib/db/Company";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router";
 
-const company = new Company();
-
 export default function Dashboard() {
+  const company = new Company();
   const invoices = Invoice.getAll();
   return (
     <>
@@ -74,7 +73,7 @@ export default function Dashboard() {
                 .reduce((acc, inv) => acc + inv.total, 0)
                 .toLocaleString("en-US", {
                   style: "currency",
-                  currency: company.defaultCurrency,
+                  currency: company.defaultCurrency ?? "USD",
                 })}
             </div>
           </CardContent>
@@ -132,7 +131,7 @@ export default function Dashboard() {
                       <TableCell>
                         {invoice.total.toLocaleString("en-US", {
                           style: "currency",
-                          currency: company.defaultCurrency,
+                          currency: company.defaultCurrency ?? "USD",
                         })}
                       </TableCell>
                       <TableCell>

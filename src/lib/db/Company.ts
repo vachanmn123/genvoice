@@ -33,8 +33,8 @@ interface CompanyData {
 }
 
 class Company {
-  name: string;
-  address: {
+  name!: string;
+  address!: {
     building: string;
     street: string;
     city: string;
@@ -42,13 +42,13 @@ class Company {
     country: string;
     zip: string;
   };
-  taxId: string;
-  taxIdentityType: string;
-  phone: string;
-  email: string;
-  website: string;
-  logoBase64: string;
-  defaultCurrency: Currency;
+  taxId!: string;
+  taxIdentityType!: string;
+  phone!: string;
+  email!: string;
+  website!: string;
+  logoBase64!: string;
+  defaultCurrency!: Currency;
 
   constructor(data?: CompanyData) {
     if (getObject("Company", "default")) {
@@ -64,7 +64,8 @@ class Company {
       this.defaultCurrency = existingCompany.defaultCurrency;
     } else {
       if (!data) {
-        throw new Error("Company data is required");
+        // throw new Error("Company data is required");
+        return;
       }
       const {
         name,
