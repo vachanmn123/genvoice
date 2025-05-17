@@ -65,6 +65,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import FormalInvoice from "@/components/FormalInvoice";
+import { Textarea } from "@/components/ui/textarea";
 
 type LineItem = {
   id: string;
@@ -81,6 +82,7 @@ type FormValues = {
   invoiceDate: Date;
   dueDate: Date;
   status: "draft" | "sent" | "paid" | "overdue";
+  terms?: string; // <-- Add terms field
 };
 
 export default function InvoiceInfo() {
@@ -117,6 +119,7 @@ export default function InvoiceInfo() {
       invoiceDate: new Date(invoice.date),
       dueDate: new Date(invoice.dueDate),
       status: invoice.status,
+      terms: invoice.terms || "", // <-- Add terms default value
     },
   });
 
@@ -206,6 +209,7 @@ export default function InvoiceInfo() {
         subtotal,
         tax,
         total,
+        terms: data.terms, // <-- Save terms
       });
 
       toast.success("Invoice saved successfully!");
@@ -563,6 +567,24 @@ export default function InvoiceInfo() {
                     <span>${total.toFixed(2)}</span>
                   </div>
                 </div>
+
+                {/* Terms Field */}
+                <FormField
+                  control={form.control}
+                  name="terms"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Terms</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="e.g. Payment due in 30 days"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </CardContent>
               <CardFooter className="flex justify-between mt-5">
                 <Button
@@ -606,6 +628,7 @@ export default function InvoiceInfo() {
                     subtotal,
                     tax,
                     total,
+                    terms: form.watch("terms") || "", // <-- Pass terms to preview
                   }}
                   clientName={selectedClient?.name}
                   clientAddress={

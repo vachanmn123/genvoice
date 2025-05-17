@@ -20,6 +20,7 @@ type InvoiceCreateInput = {
   tax: number;
   total: number;
   id?: undefined;
+  terms?: string;
 };
 
 type InvoiceLoadInput = {
@@ -39,6 +40,7 @@ class Invoice {
   subtotal: number;
   tax: number;
   total: number;
+  terms?: string;
 
   constructor(data: InvoiceInput) {
     if ("id" in data && data.id) {
@@ -53,6 +55,7 @@ class Invoice {
       this.subtotal = invoice.subtotal;
       this.tax = invoice.tax;
       this.total = invoice.total;
+      this.terms = invoice.terms;
     } else {
       data = data as InvoiceCreateInput;
       this.id = window.crypto.randomUUID();
@@ -67,7 +70,7 @@ class Invoice {
       this.subtotal = data.subtotal;
       this.tax = data.tax;
       this.total = data.total;
-
+      this.terms = data.terms;
       saveObject("Invoice", this, this.id);
     }
   }

@@ -29,7 +29,9 @@ interface InvoiceViewProps {
     subtotal: number;
     tax: number;
     total: number;
+    terms: string;
   };
+  terms?: string;
 }
 
 const company = new Company();
@@ -46,6 +48,7 @@ export default function FormalInvoice({
   clientEmail = "client@example.com",
   clientPhone = "(555) 987-6543",
   previewData,
+  terms = "",
 }: InvoiceViewProps) {
   // Use preview data if provided, otherwise fetch from db
   let invoiceData;
@@ -213,6 +216,10 @@ export default function FormalInvoice({
 
         <div className={styles["invoice-thank-you"]}>
           <p>Thank you for your business!</p>
+        </div>
+
+        <div className={styles["invoice-footer"]}>
+          <p className="whitespace-pre">{invoiceData.terms ?? terms}</p>
         </div>
       </div>
     </div>
