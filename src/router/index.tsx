@@ -11,6 +11,7 @@ import CreateInvoice from "@/routes/app/Invoices/Create";
 import InvoiceDetailPage from "@/routes/app/Invoices/InvoiceInfo";
 import InvoicePrint from "@/routes/app/Invoices/InvoicePrint";
 import Settings from "@/routes/app/settings/Home";
+import ErrorPage from "./ErrorPage";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/app",
+    errorElement: <ErrorPage />,
     Component: AppLayout,
     children: [
       { index: true, Component: Dashboard },
