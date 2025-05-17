@@ -39,11 +39,11 @@ const company = new Company();
 export default function FormalInvoice({
   invoiceId,
   companyName = company.name,
-  companyAddress = `${company.address.building ?? ""} ${
-    company.address.street ?? ""
-  }, ${company.address.city ?? ""}, ${company.address.state ?? ""}, ${
-    company.address.country ?? ""
-  } - ${company.address.zip ?? ""}`,
+  companyAddress = `${company.address?.building ?? ""} ${
+    company.address?.street ?? ""
+  }, ${company.address?.city ?? ""}, ${company.address?.state ?? ""}, ${
+    company.address?.country ?? ""
+  } - ${company.address?.zip ?? ""}`,
   companyEmail = company.email ?? "",
   companyPhone = company.phone ?? "",
   companyLogo = company.logoBase64 ?? "",
